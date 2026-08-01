@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>พรีออเดอร์ของขวัญครบรอบ  🌸</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,500;1,9..144,600&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream: #FBF0E8;
+    --paper: #FFFDF9;
+    --plum: #3A2530;
+    --plum-soft: #6b5560;
+    --rose: #C15C6B;
+    --rose-dark: #A54556;
+    --sage: #7C8B6F;
+    --gold: #C9992B;
+    --line: #E7D8CC;
+    --radius: 14px;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin:0;
+    background: var(--cream);
+    color: var(--plum);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  body::before{
+    content:"";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image: radial-gradient(circle, rgba(58,37,48,0.05) 1px, transparent 1px);
+    background-size: 22px 22px;
+    z-index: 0;
+  }
+
+  h1, h2, h3{ font-family:'Fraunces', serif; margin:0; color: var(--plum); }
+
+  .wrap{
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 28px 20px 80px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    text-align: center;
+    padding: 40px 16px 36px;
+    position: relative;
+  }
+  .stamp{
+    display:inline-flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content:center;
+    width: 128px; height: 128px;
+    border: 2px dashed var(--rose);
+    border-radius: 50%;
+    transform: rotate(-9deg);
+    color: var(--rose-dark);
+    font-family:'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    margin-bottom: 18px;
+    animation: stampIn .6s ease-out both;
+  }
+  .stamp strong{ font-size: 22px; font-family:'Fraunces', serif; letter-spacing: 0; margin: 2px 0; }
+
+  .hero .eyebrow{
+    font-family:'Space Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 3px;
+    color: var(--sage);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .hero h1{
+    font-size: clamp(2.1rem, 5vw, 3.2rem);
+    font-weight: 500;
+    line-height: 1.15;
+  }
+  .hero h1 em{
+    font-style: italic;
+    color: var(--rose);
+    font-weight: 500;
+  }
+  .hero p.sub{
+    max-width: 480px;
+    margin: 16px auto 0;
+    color: var(--plum-soft);
+    font-size: 1.02rem;
+  }
+
+  /* ---------- LAYOUT ---------- */
+  .board{
+    display: grid;
+    grid-template-columns: 1.35fr 1fr;
+    gap: 28px;
+    align-items: start;
+    margin-top: 34px;
+  }
+  @media (max-width: 860px){
+    .board{ grid-template-columns: 1fr; }
+  }
+
+  .section-label{
+    font-family:'Space Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin: 0 0 14px 2px;
+    display:flex;
+    align-items:center;
+    gap: 8px;
+  }
+  .section-label::after{
+    content:"";
+    flex:1;
+    height:1px;
+    background: var(--line);
+  }
+
+  /* ---------- MENU / PRODUCT CARDS ---------- */
+  #menu{ display:flex; flex-direction: column; gap: 14px; }
+
+  .product-card{
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    transition: border-color .25s ease, transform .2s ease, box-shadow .25s ease;
+  }
+  .product-card:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(58,37,48,0.06);
+  }
+  .product-card.is-selected{
+    border-color: var(--rose);
+    box-shadow: 0 8px 22px rgba(193,92,107,0.12);
+  }
+
+  .product-head{
+    display:flex;
+    align-items:center;
+    gap: 14px;
+  }
+  .product-emoji{
+    font-size: 28px;
+    line-height: 1;
+    flex-shrink:0;
+  }
+  .product-info{ flex:1; min-width:0; }
+  .product-info h3{ font-size: 1.15rem; font-weight: 500; }
+  .product-info p{ margin: 3px 0 0; font-size: 0.9rem; color: var(--plum-soft); }
+
+  .check{ position: relative; flex-shrink:0; }
+  .check input{
+    position:absolute; opacity:0; width:100%; height:100%; margin:0; cursor:pointer;
+  }
+  .check-mark{
+    display:block;
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    border: 2px solid var(--rose);
+    position: relative;
+    transition: background .2s ease;
+  }
+  .check-mark::after{
+    content:"";
+    position:absolute; inset:0;
+    display:flex; align-items:center; justify-content:center;
+    color:#fff; font-size: 14px;
+    opacity:0; transform: scale(.5);
+    transition: opacity .15s ease, transform .15s ease;
+  }
+  .check input:checked ~ .check-mark{ background: var(--rose); }
+  .check input:checked ~ .check-mark::after{ content:"✓"; opacity:1; transform: scale(1); }
+  .check input:focus-visible ~ .check-mark{ outline: 2px solid var(--gold); outline-offset: 2px; }
+
+  .variant-list{
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px dashed var(--line);
+    display:flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .variant-option{
+    position: relative;
+    font-size: 0.85rem;
+    padding: 7px 14px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    cursor: pointer;
+    color: var(--plum-soft);
+    transition: all .15s ease;
+  }
+  .variant-option input{ position:absolute; opacity:0; }
+  .variant-option:has(input:checked){
+    background: var(--rose);
+    border-color: var(--rose);
+    color: #fff;
+  }
+  .variant-option:has(input:focus-visible){ outline: 2px solid var(--gold); outline-offset: 2px; }
+
+  /* custom request card */
+  .custom-card{
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+  }
+  .custom-card h3{ font-size: 1.05rem; font-weight: 500; margin-bottom: 6px; }
+  .custom-card p{ font-size: .87rem; color: var(--plum-soft); margin: 0 0 10px; }
+  textarea, input[type=text]{
+    width: 100%;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    padding: 11px 13px;
+    border-radius: 10px;
+    border: 1px solid var(--line);
+    background: var(--cream);
+    color: var(--plum);
+    resize: vertical;
+  }
+  textarea:focus, input[type=text]:focus{
+    outline: none;
+    border-color: var(--rose);
+    background: #fff;
+  }
+
+  /* ---------- RECEIPT ---------- */
+  .receipt-wrap{ position: sticky; top: 24px; }
+  .receipt{
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 26px 22px 22px;
+    position: relative;
+    overflow: hidden;
+  }
+  .receipt::before{
+    content:"";
+    position:absolute; top:0; left:0; right:0; height: 10px;
+    background:
+      radial-gradient(circle at 10px 0, transparent 6px, var(--paper) 6.5px) 0 -5px / 20px 10px repeat-x;
+  }
+  .receipt-title{
+    text-align:center;
+    margin-bottom: 4px;
+  }
+  .receipt-title h2{ font-size: 1.3rem; font-weight: 500; }
+  .receipt-meta{
+    text-align:center;
+    font-family:'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--plum-soft);
+    margin-top: 4px;
+  }
+  .receipt-divider{
+    border: none;
+    border-top: 1px dashed var(--line);
+    margin: 16px 0;
+  }
+  #receiptItems{ min-height: 40px; }
+  .receipt-empty{
+    text-align:center;
+    font-size: .87rem;
+    color: var(--plum-soft);
+    font-style: italic;
+    margin: 10px 0;
+  }
+  .receipt-line{
+    display:flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 10px;
+    font-size: 0.9rem;
+    padding: 7px 0;
+    animation: lineIn .25s ease-out both;
+  }
+  .receipt-line span:first-child{ font-weight: 500; }
+  .receipt-variant{
+    font-family:'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--rose-dark);
+    text-align: right;
+  }
+  .receipt-count{
+    display:flex;
+    justify-content: space-between;
+    font-family:'Space Mono', monospace;
+    font-size: 12px;
+    color: var(--plum-soft);
+    margin-top: 6px;
+  }
+
+  .field{ margin-top: 16px; }
+  .field label{
+    display:block;
+    font-size: 12px;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+    font-family:'Space Mono', monospace;
+    color: var(--sage);
+    margin-bottom: 6px;
+  }
+
+  .submit-btn{
+    width: 100%;
+    margin-top: 20px;
+    padding: 14px;
+    border: none;
+    border-radius: 999px;
+    background: var(--rose);
+    color: #fff;
+    font-family:'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 0.98rem;
+    cursor: pointer;
+    transition: background .2s ease, transform .1s ease;
+  }
+  .submit-btn:hover{ background: var(--rose-dark); }
+  .submit-btn:active{ transform: scale(.98); }
+  .submit-btn:disabled{ opacity: .6; cursor: not-allowed; }
+
+  .form-message{
+    margin-top: 12px;
+    font-size: 0.85rem;
+    text-align:center;
+    color: var(--rose-dark);
+    min-height: 18px;
+  }
+
+  /* confirmation state */
+  .confirm{
+    text-align:center;
+    padding: 10px 0 4px;
+  }
+  .confirm .stamp-ring{
+    width: 110px; height: 110px;
+    margin: 0 auto 16px;
+    border: 3px solid var(--sage);
+    border-radius: 50%;
+    display:flex; align-items:center; justify-content:center;
+    color: var(--sage);
+    font-size: 40px;
+    transform: rotate(-6deg) scale(0.5);
+    opacity: 0;
+    animation: stampHit .45s cubic-bezier(.2,1.4,.4,1) forwards;
+  }
+  .confirm h3{ font-size: 1.25rem; margin-bottom: 6px; }
+  .confirm p{ color: var(--plum-soft); font-size: .9rem; margin: 4px 0; }
+  .confirm .order-id{
+    font-family:'Space Mono', monospace;
+    font-size: 12px;
+    color: var(--gold);
+    margin: 10px 0 18px;
+  }
+  .reset-btn{
+    background: none;
+    border: 1px solid var(--line);
+    color: var(--plum-soft);
+    padding: 9px 18px;
+    border-radius: 999px;
+    font-family: 'Inter', sans-serif;
+    font-size: .85rem;
+    cursor: pointer;
+  }
+  .reset-btn:hover{ border-color: var(--rose); color: var(--rose-dark); }
+
+  .testimonial{
+    margin-top: 22px;
+    padding-top: 18px;
+    border-top: 1px dashed var(--line);
+    text-align: left;
+  }
+  .testimonial-label{
+    font-family:'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  .testimonial-card{
+    background: var(--cream);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 13px 15px;
+  }
+  .testimonial-stars{ color: var(--gold); font-size: 13px; letter-spacing: 2px; }
+  .testimonial-text{ font-size: .87rem; color: var(--plum-soft); margin: 6px 0 4px; font-style: italic; }
+  .testimonial-name{ font-family:'Space Mono', monospace; font-size: 11px; color: var(--rose-dark); }
+
+  footer{
+    text-align:center;
+    margin-top: 56px;
+    font-family:'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--plum-soft);
+    letter-spacing: .5px;
+  }
+
+  @keyframes stampIn{
+    from{ opacity: 0; transform: rotate(-9deg) scale(.7); }
+    to{ opacity: 1; transform: rotate(-9deg) scale(1); }
+  }
+  @keyframes lineIn{
+    from{ opacity: 0; transform: translateY(4px); }
+    to{ opacity: 1; transform: translateY(0); }
+  }
+  @keyframes stampHit{
+    0%{ opacity:0; transform: rotate(-6deg) scale(.5); }
+    70%{ opacity:1; transform: rotate(-6deg) scale(1.08); }
+    100%{ opacity:1; transform: rotate(-6deg) scale(1); }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .stamp, .receipt-line, .confirm .stamp-ring{ animation: none !important; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <div class="stamp">
+      <span>OPEN ORDER</span>
+      <strong>ของขวัญครบรอบ</strong>
+      <span>LIMITED · 1 คน</span>
+    </div>
+    <h1>เปิดพรีออเดอร์<br><em>สุดพิเศษ</em> สำหรับที่รัก</h1>
+    <p class="sub">เลือกของที่อยากได้เป็นของขวัญวันครบรอบของเราได้เลยนะ
+      กดเลือกเมนูด้านล่าง แล้วกดยืนยันคำสั่งซื้อ เดี๋ยวเราจัดให้เอง 🤍</p>
+  </section>
+
+  <!-- ============ BOARD ============ -->
+  <div class="board">
+    <div>
+      <p class="section-label">เมนูของขวัญ</p>
+      <div id="menu"></div>
+      <p style="margin:16px 4px 0; font-size:.85rem; color:var(--plum-soft);">
+        💭 อยากได้อะไรอีก หรืออยากฝากข้อความ เขียนได้ในช่อง "ข้อความถึงกัน" ทางขวา →
+      </p>
+    </div>
+
+    <div class="receipt-wrap">
+      <form class="receipt" id="orderForm">
+        <div id="receiptBody">
+          <div class="receipt-title">
+            <h2>ใบสั่งซื้อ</h2>
+            <div class="receipt-meta" id="receiptMeta">รอการเลือกของ...</div>
+          </div>
+          <hr class="receipt-divider">
+          <div id="receiptItems">
+            <p class="receipt-empty">ยังไม่ได้เลือกอะไรเลยนะ ลองดูเมนูด้านซ้ายสิ</p>
+          </div>
+          <div class="receipt-count">
+            <span>จำนวนของที่เลือก</span>
+            <span id="itemCount">0</span>
+          </div>
+          <hr class="receipt-divider">
+
+          <div class="field">
+            <label for="fromName">ชื่อคนสั่ง</label>
+            <input type="text" id="fromName" placeholder="ใครสั่งอะ 😄" autocomplete="off">
+          </div>
+          <div class="field">
+            <label for="note">ข้อความถึงกัน</label>
+            <textarea id="note" rows="3" placeholder="เขียนอะไรก็ได้ที่อยากบอก..."></textarea>
+          </div>
+          <div class="field">
+            <label for="address">ที่อยู่จัดส่ง</label>
+            <textarea id="address" rows="2" placeholder="จัดส่งไปที่ไหนดี..."></textarea>
+          </div>
+
+          <button type="submit" class="submit-btn">ยืนยันคำสั่งซื้อ ❤</button>
+          <p class="form-message" id="formMessage"></p>
+        </div>
+
+        <div id="confirmBody" class="confirm" hidden>
+          <div class="stamp-ring">✓</div>
+          <h3>ส่งคำสั่งซื้อแล้ว!</h3>
+          <p>ขอบคุณนะที่เลือกของจากร้านนี้ 🤍</p>
+          <p>เดี๋ยวเราจะรีบจัดให้เร็วๆ นี้</p>
+          <div class="order-id" id="orderIdDisplay"></div>
+
+          <div class="testimonial" id="reviewSection">
+            <p class="testimonial-label">รีวิวร้านนี้หน่อยนะ</p>
+            <p style="font-size:.85rem; color:var(--plum-soft); margin:0 0 10px; line-height:1.5;">
+              อยู่กันมา 6 เดือนแล้ว มีอะไรอยากบอกไหม ชอบอะไร ไม่ชอบอะไร อยากให้ปรับตรงไหน
+              หรือมีเรื่องที่ไม่กล้าพูดตรงๆ ก็เขียนได้เลยนะ ตอบตามจริงได้เลย ไม่ว่ากัน 🤍
+            </p>
+            <textarea id="reviewText" rows="4" placeholder="เขียนรีวิวตรงนี้ได้เลย..."></textarea>
+            <button type="button" class="submit-btn" id="reviewSubmitBtn" style="margin-top:10px;">ส่งรีวิว</button>
+            <p class="form-message" id="reviewMessage"></p>
+          </div>
+
+          <div class="testimonial" id="reviewThanks" hidden>
+            <p class="testimonial-label">ขอบคุณนะ</p>
+            <p style="font-size:.87rem; color:var(--plum-soft); text-align:center;">
+              รับฟังทุกอย่างที่บอกมาแล้วนะ จะพยายามปรับปรุงต่อไป 🤍
+            </p>
+          </div>
+
+          <button type="button" class="reset-btn" id="resetBtn" style="margin-top:18px;">สั่งใหม่อีกครั้ง</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <footer>MADE WITH ❤ · SIX MONTHS AND COUNTING</footer>
+</div>
+
+<!-- EmailJS SDK: sends the order notification straight to your inbox, no backend needed -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+  /* =========================================================
+     ตั้งค่าตรงนี้ก่อนใช้งานจริง (ดูวิธีทำในแชทที่ให้ไฟล์มา)
+     1. สมัคร EmailJS ฟรีที่ https://www.emailjs.com
+     2. เพิ่ม Email Service (เช่นเชื่อมกับ Gmail ของตัวเอง) -> ได้ SERVICE_ID
+     3. สร้าง Email Template -> ได้ TEMPLATE_ID
+        ในเทมเพลตให้ใช้ตัวแปรเหล่านี้: {{from_name}} {{order_id}} {{order_time}} {{items}} {{note}}
+     4. ไปที่ Account -> General เพื่อเอา PUBLIC_KEY
+     5. แทนค่า 3 ตัวด้านล่างนี้ แล้วอัพขึ้น GitHub ได้เลย
+  ========================================================= */
+  const EMAILJS_PUBLIC_KEY  = "CqMfQ3AjWXawZwYd2";
+  const EMAILJS_SERVICE_ID  = "service_y7rzwbh";
+  const EMAILJS_TEMPLATE_ID = "template_x6vrq8q";
+
+  if (!EMAILJS_PUBLIC_KEY.includes("YOUR_") && window.emailjs) {
+    emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+  }
+
+  /* =========================================================
+     แก้เมนูของขวัญตรงนี้ได้เลย เพิ่ม/ลบ/แก้ชื่อได้ตามใจ
+  ========================================================= */
+  const PRODUCTS = [
+    {
+      id: "flowers",
+      emoji: "💐",
+      name: "ช่อดอกไม้",
+      desc: "เลือกช่อที่ชอบที่สุด ให้จัดมาให้",
+      variants: ["กุหลาบแดงคลาสสิก", "ทานตะวันสดใส", "ดอกไม้รวมโทนพาสเทล", "ตามใจคนเปิดรับออเดอร์ 🤍"]
+    },
+    {
+      id: "card",
+      emoji: "💌",
+      name: "การ์ดข้อความ",
+      desc: "การ์ดเล็กๆ พร้อมข้อความจากใจ",
+      variants: ["การ์ดลายมือเขียน", "การ์ดพิมพ์ลายดอกไม้", "การ์ดมินิมอล", "ตามใจคนเปิดรับออเดอร์ 🤍"]
+    },
+    {
+      id: "choco",
+      emoji: "🍫",
+      name: "ช็อกโกแลต",
+      desc: "หวานๆ พอดีคำ กินแล้วยิ้ม",
+      variants: ["ดาร์กช็อกโกแลต", "ช็อกโกแลตนม", "รวมไส้ต่างๆ", "ตามใจคนเปิดรับออเดอร์ 🤍"]
+    },
+    {
+      id: "journal",
+      emoji: "📓",
+      name: "สมุดบันทึก",
+      desc: "ไว้เขียนความคิด เรื่องที่คิดลึกๆ คนเดียว",
+      variants: ["เส้นบรรทัดปกติ", "ไม่มีเส้น (Blank)", "ลายตาราง (Grid)", "จุด (Dot Grid)", "ตามใจคนเปิดรับออเดอร์ 🤍"]
+    },
+    {
+      id: "candle",
+      emoji: "🕯️",
+      name: "เทียนหอม",
+      desc: "กลิ่นเข้มๆ ไว้จุดตอนอยู่กับตัวเองเงียบๆ",
+      variants: ["ไม้จันทน์ (Sandalwood)", "มัสก์ (Musk)", "ไม้โอ๊คและอำพัน", "ตามใจคนเปิดรับออเดอร์ 🤍"]
+    }
+  ];
+
+  const state = {};
+  const menuEl = document.getElementById("menu");
+  const receiptItemsEl = document.getElementById("receiptItems");
+  const receiptMetaEl = document.getElementById("receiptMeta");
+  const itemCountEl = document.getElementById("itemCount");
+
+  function renderMenu(){
+    PRODUCTS.forEach(p => {
+      state[p.id] = { selected: false, variant: p.variants[0] };
+
+      const card = document.createElement("div");
+      card.className = "product-card";
+      card.innerHTML = `
+        <div class="product-head">
+          <span class="product-emoji" aria-hidden="true">${p.emoji}</span>
+          <div class="product-info">
+            <h3>${p.name}</h3>
+            <p>${p.desc}</p>
+          </div>
+          <label class="check">
+            <input type="checkbox" id="toggle-${p.id}">
+            <span class="check-mark"></span>
+          </label>
+        </div>
+        <div class="variant-list" id="variants-${p.id}" hidden>
+          ${p.variants.map((v, i) => `
+            <label class="variant-option">
+              <input type="radio" name="variant-${p.id}" value="${v}" ${i === 0 ? "checked" : ""}>
+              <span>${v}</span>
+            </label>
+          `).join("")}
+        </div>
+      `;
+      menuEl.appendChild(card);
+
+      const toggle = card.querySelector(`#toggle-${p.id}`);
+      const variantList = card.querySelector(`#variants-${p.id}`);
+
+      toggle.addEventListener("change", () => {
+        state[p.id].selected = toggle.checked;
+        variantList.hidden = !toggle.checked;
+        card.classList.toggle("is-selected", toggle.checked);
+        updateReceipt();
+      });
+
+      variantList.querySelectorAll("input[type=radio]").forEach(radio => {
+        radio.addEventListener("change", () => {
+          state[p.id].variant = radio.value;
+          updateReceipt();
+        });
+      });
+    });
+  }
+
+  function updateReceipt(){
+    const chosen = PRODUCTS.filter(p => state[p.id].selected);
+    if (chosen.length === 0){
+      receiptItemsEl.innerHTML = `<p class="receipt-empty">ยังไม่ได้เลือกอะไรเลยนะ ลองดูเมนูด้านซ้ายสิ</p>`;
+      receiptMetaEl.textContent = "รอการเลือกของ...";
+    } else {
+      receiptItemsEl.innerHTML = chosen.map(p => `
+        <div class="receipt-line">
+          <span>${p.emoji} ${p.name}</span>
+          <span class="receipt-variant">${state[p.id].variant}</span>
+        </div>
+      `).join("");
+      receiptMetaEl.textContent = new Date().toLocaleDateString("th-TH", { day:"numeric", month:"short", year:"numeric" });
+    }
+    itemCountEl.textContent = chosen.length;
+  }
+
+  function showFormMessage(text){
+    document.getElementById("formMessage").textContent = text;
+  }
+
+  function showConfirmation(orderId){
+    document.getElementById("receiptBody").hidden = true;
+    const confirmBody = document.getElementById("confirmBody");
+    confirmBody.hidden = false;
+    document.getElementById("orderIdDisplay").textContent = "ORDER " + orderId;
+  }
+
+  document.getElementById("reviewSubmitBtn").addEventListener("click", async () => {
+    const reviewText = document.getElementById("reviewText").value.trim();
+    const reviewMsg = document.getElementById("reviewMessage");
+    reviewMsg.textContent = "";
+
+    if (!reviewText){
+      reviewMsg.textContent = "เขียนอะไรสักหน่อยก่อนนะ";
+      return;
+    }
+
+    const fromName = document.getElementById("fromName").value.trim() || "แฟน";
+    const reviewParams = {
+      from_name: fromName,
+      order_id: "REVIEW-" + Date.now().toString().slice(-6),
+      order_time: new Date().toLocaleString("th-TH", { dateStyle: "medium", timeStyle: "short" }),
+      items: "💌 รีวิวความสัมพันธ์ (ไม่ใช่คำสั่งซื้อ)",
+      note: reviewText,
+      address: "-"
+    };
+
+    if (EMAILJS_PUBLIC_KEY.includes("YOUR_")){
+      reviewMsg.textContent = "ยังไม่ได้ตั้งค่า EmailJS นะ";
+      console.log("Review (ยังไม่ได้ตั้งค่า EmailJS):", reviewParams);
+      return;
+    }
+
+    const btn = document.getElementById("reviewSubmitBtn");
+    btn.disabled = true;
+    btn.textContent = "กำลังส่ง...";
+
+    try {
+      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, reviewParams);
+      document.getElementById("reviewSection").hidden = true;
+      document.getElementById("reviewThanks").hidden = false;
+    } catch (err){
+      console.error(err);
+      reviewMsg.textContent = "ส่งไม่สำเร็จ ลองใหม่อีกครั้งนะ";
+      btn.disabled = false;
+      btn.textContent = "ส่งรีวิว";
+    }
+  });
+
+  document.getElementById("resetBtn").addEventListener("click", () => {
+    document.getElementById("orderForm").reset();
+    Object.keys(state).forEach(id => { state[id].selected = false; });
+    document.querySelectorAll(".product-card").forEach(c => c.classList.remove("is-selected"));
+    document.querySelectorAll(".variant-list").forEach(v => v.hidden = true);
+    updateReceipt();
+    showFormMessage("");
+    document.getElementById("confirmBody").hidden = true;
+    document.getElementById("receiptBody").hidden = false;
+    document.getElementById("reviewText").value = "";
+    document.getElementById("reviewMessage").textContent = "";
+    document.getElementById("reviewSection").hidden = false;
+    document.getElementById("reviewThanks").hidden = true;
+    const reviewBtn = document.getElementById("reviewSubmitBtn");
+    reviewBtn.disabled = false;
+    reviewBtn.textContent = "ส่งรีวิว";
+  });
+
+  document.getElementById("orderForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    showFormMessage("");
+
+    const chosen = PRODUCTS.filter(p => state[p.id].selected);
+    const fromName = document.getElementById("fromName").value.trim();
+    const note = document.getElementById("note").value.trim();
+    const address = document.getElementById("address").value.trim();
+
+    if (chosen.length === 0 && !note){
+      showFormMessage("เลือกของสักอย่าง หรือเขียนข้อความไว้ก่อนนะ");
+      return;
+    }
+    if (!fromName){
+      showFormMessage("บอกชื่อหน่อยว่าใครสั่งอะ 😄");
+      return;
+    }
+    if (!address){
+      showFormMessage("อย่าลืมบอกที่อยู่จัดส่งด้วยนะ");
+      return;
+    }
+
+    const orderId = "ORD-" + Date.now().toString().slice(-6);
+    const orderTime = new Date().toLocaleString("th-TH", { dateStyle: "medium", timeStyle: "short" });
+    const itemsText = chosen.length
+      ? chosen.map(p => `- ${p.name}: ${state[p.id].variant}`).join("\n")
+      : "(ไม่ได้เลือกของ มีแต่ข้อความ)";
+
+    const templateParams = {
+      from_name: fromName,
+      order_id: orderId,
+      order_time: orderTime,
+      items: itemsText,
+      note: note || "(ไม่มีข้อความเพิ่มเติม)",
+      address: address
+    };
+
+    if (EMAILJS_PUBLIC_KEY.includes("YOUR_")){
+      showFormMessage("ยังไม่ได้ตั้งค่า EmailJS นะ (ดูคอมเมนต์ในโค้ด) — ตอนนี้ทดสอบหน้าตาได้ แต่ยังไม่มีอีเมลส่งจริง");
+      console.log("Order (ยังไม่ได้ตั้งค่า EmailJS):", templateParams);
+      showConfirmation(orderId);
+      return;
+    }
+
+    const submitBtn = e.target.querySelector(".submit-btn");
+    submitBtn.disabled = true;
+    submitBtn.textContent = "กำลังส่ง...";
+
+    try {
+      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams);
+      showConfirmation(orderId);
+    } catch (err){
+      console.error(err);
+      showFormMessage("ส่งไม่สำเร็จ ลองใหม่อีกครั้ง หรือทักไปบอกตรงๆ ก็ได้นะ 🥲");
+      submitBtn.disabled = false;
+      submitBtn.textContent = "ยืนยันคำสั่งซื้อ ❤";
+    }
+  });
+
+  renderMenu();
+  updateReceipt();
+</script>
+</body>
+</html>
